@@ -1,0 +1,1 @@
+SENTINEL_URL   = "https://api.mydomain.com"
