@@ -1,1 +1,1 @@
-SENTINEL_URL   = "https://api.mydomain.com"
+SENTINEL_URL   = "http://localhost:8000/server"

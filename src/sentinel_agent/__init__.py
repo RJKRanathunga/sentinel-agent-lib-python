@@ -1,4 +1,3 @@
-from .otel import setup_otel
-from .heartbeat import send_heartbeat
+from .agent import SentinelAgent
 
-__all__ = ["setup_otel", "send_heartbeat"]
+__all__ = ["SentinelAgent"]

@@ -1,6 +1,6 @@
 import time, random, uuid, requests
 
-from src.sentinel_agent.constants import SENTINEL_URL
+from .constants import SENTINEL_URL
 
 BOOT_ID = str(uuid.uuid4())
 

@@ -10,7 +10,7 @@ from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExport
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
 
-from src.sentinel_agent.constants import SENTINEL_URL
+from .constants import SENTINEL_URL
 
 
 def setup_otel(*,app: Flask,api_key: str, service_name: str) -> None:
