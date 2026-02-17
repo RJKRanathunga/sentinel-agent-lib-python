@@ -12,7 +12,9 @@ class SentinelAgent:
     def start(
         cls,
         *,
-        app: Flask,
+        app: object | None = None,
+        framework: str,
+        instrumentations: list[str] | None = None ,
         api_key: str,
         service_name: str = "unknown-service",
         enable_logging: bool = True,
@@ -26,6 +28,8 @@ class SentinelAgent:
         if enable_logging:
             setup_otel(
                 app=app,
+                framework=framework,
+                instrumentations=instrumentations,
                 api_key=api_key,
                 service_name=service_name
             )

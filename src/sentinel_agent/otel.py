@@ -1,4 +1,4 @@
-from flask import Flask
+import importlib
 
 from opentelemetry import trace
 from opentelemetry.sdk.resources import Resource
@@ -7,13 +7,23 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 
-from opentelemetry.instrumentation.flask import FlaskInstrumentor
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
-
-from .constants import SENTINEL_URL
+from .constants import SENTINEL_URL, ALLOWED_FRAMEWORKS, ALLOWED_INSTRUMENTATIONS
+from ..integrations import FRAMEWORKS, INSTRUMENTATIONS
 
 
-def setup_otel(*,app: Flask,api_key: str, service_name: str) -> None:
+def _load_callable(path: str):
+    module_path, func_name = path.split(":")
+    module = importlib.import_module(module_path)
+    return getattr(module, func_name)
+
+def setup_otel(
+        *,
+        app: object | None,
+        framework: str,
+        instrumentations: list[str] | None,
+        api_key: str,
+        service_name: str
+) -> None:
     provider = TracerProvider(
         resource=Resource.create({"service.name": service_name})
     )
@@ -26,5 +36,26 @@ def setup_otel(*,app: Flask,api_key: str, service_name: str) -> None:
 
     provider.add_span_processor(BatchSpanProcessor(exporter))
 
-    FlaskInstrumentor().instrument_app(app)
-    RequestsInstrumentor().instrument()
+    # -------- Apply framework instrumentation --------
+    if framework:
+        if framework not in ALLOWED_FRAMEWORKS:
+            raise ValueError(f"Unsupported framework: {framework}")
+
+        if framework in ("flask", "fastapi") and app is None:
+            raise ValueError(f"{framework} framework requires app instance")
+
+        fn = _load_callable(FRAMEWORKS[framework])
+
+        if framework in ("flask", "fastapi"):
+            fn(app)
+        else:
+            fn()
+
+    # -------- Apply selected instrumentations --------
+    if instrumentations:
+        for name in instrumentations:
+            if name not in ALLOWED_INSTRUMENTATIONS:
+                raise ValueError(f"Unsupported instrumentation: {name}")
+
+            fn = _load_callable(INSTRUMENTATIONS[name])
+            fn()

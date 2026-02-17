@@ -10,22 +10,58 @@ readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "Sentinel Labs" }]
 
+[project]
 dependencies = [
-    # Core OTel
-    "opentelemetry-api>=1.25.0",
-    "opentelemetry-sdk>=1.25.0",
-    "opentelemetry-exporter-otlp>=1.25.0",
+      "requests>=2.0",
+]
 
-    # Instrumentations
-    "opentelemetry-instrumentation-flask>=0.46b0",
-    "opentelemetry-instrumentation-requests>=0.46b0",
-    "opentelemetry-instrumentation-logging>=0.46b0",
+[project.optional-dependencies]
+monitor = [
+  "opentelemetry-api>=1.25.0",
+  "opentelemetry-sdk>=1.25.0",
+  "opentelemetry-exporter-otlp>=1.25.0",
 
-    # Scheduler
-    "APScheduler>=3.11.2",
+  "opentelemetry-instrumentation>=0.46b0",
+]
 
-    # Web framework
-    "Flask>=2.3,<4.0",
+heartbeat = [
+      "APScheduler>=3.11.2",
+]
+
+# ---- frameworks (server-side) ----
+flask = [
+  "Flask>=2.3,<4.0",
+  "opentelemetry-instrumentation-flask>=0.46b0",
+]
+
+fastapi = [
+  "fastapi>=0.100",
+  "opentelemetry-instrumentation-fastapi>=0.46b0",
+]
+
+django = [
+  "Django>=3.2",
+  "opentelemetry-instrumentation-django>=0.46b0",
+]
+
+# ---- clients / libraries (outgoing / DB) ----
+requests-trace = [
+  "opentelemetry-instrumentation-requests>=0.46b0",
+]
+
+httpx = [
+  "httpx>=0.24",
+  "opentelemetry-instrumentation-httpx>=0.46b0",
+]
+
+psycopg2 = [
+  "psycopg2>=2.9",
+  "opentelemetry-instrumentation-psycopg2>=0.46b0",
+]
+
+sqlalchemy = [
+  "SQLAlchemy>=1.4",
+  "opentelemetry-instrumentation-sqlalchemy>=0.46b0",
 ]
 
 [tool.setuptools]
