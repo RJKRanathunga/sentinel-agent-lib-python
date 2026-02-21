@@ -1,0 +1,10 @@
+# Core dependencies for library
+requests>=2.0
+Flask>=2.3.0
+APScheduler>=3.10.0
+
+# OpenTelemetry tracing
+opentelemetry-api>=1.25.0
+opentelemetry-sdk>=1.25.0
+opentelemetry-exporter-otlp>=1.25.0
+opentelemetry-instrumentation>=0.46b0

@@ -8,7 +8,7 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 
 from .constants import SENTINEL_URL, ALLOWED_FRAMEWORKS, ALLOWED_INSTRUMENTATIONS
-from ..integrations import FRAMEWORKS, INSTRUMENTATIONS
+from .integrations import FRAMEWORKS, INSTRUMENTATIONS
 
 
 def _load_callable(path: str):
