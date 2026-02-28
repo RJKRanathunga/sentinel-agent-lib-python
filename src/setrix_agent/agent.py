@@ -5,7 +5,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from opentelemetry import trace
 
 
-class SentinelAgent:
+class SetrixAgent:
     _started = False
 
     @classmethod
