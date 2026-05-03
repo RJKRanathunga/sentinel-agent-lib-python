@@ -7,7 +7,7 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 
-from .constants import SETRIX_URL, ALLOWED_FRAMEWORKS, ALLOWED_INSTRUMENTATIONS
+from .constants import ACENITE_URL, ALLOWED_FRAMEWORKS, ALLOWED_INSTRUMENTATIONS
 from .integrations import FRAMEWORKS, INSTRUMENTATIONS
 
 
@@ -30,7 +30,7 @@ def setup_otel(
     trace.set_tracer_provider(provider)
 
     exporter = OTLPSpanExporter(
-                endpoint=f"{SETRIX_URL}/monitor/",
+                endpoint=f"{ACENITE_URL}/monitor/",
                 headers={"Authorization": f"Bearer {api_key}"}
                 )
 

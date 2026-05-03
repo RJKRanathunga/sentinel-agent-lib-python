@@ -1,4 +1,4 @@
-SETRIX_URL   = "http://localhost:8000/server"
+ACENITE_URL   = "http://localhost:8000/server"
 
 ALLOWED_FRAMEWORKS = {
     "flask",

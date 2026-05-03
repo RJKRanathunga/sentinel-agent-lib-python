@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "setrix-agent"
+name = "acenite-agent"
 version = "0.1.0"
-description = "Setrix agent: OpenTelemetry bootstrap + heartbeat logic"
+description = "Acenite agent: OpenTelemetry bootstrap + heartbeat logic"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "Lumine-Labs" }]
